@@ -1,2 +1,6 @@
 .DS_Store
-smart_study_room/.env
+django_api_env/
+*.pyc
+__pycache__/
+*.sqlite3
+.env
