@@ -1,5 +1,4 @@
 .DS_Store
-django_api_env/
 *.pyc
 __pycache__/
 *.sqlite3
