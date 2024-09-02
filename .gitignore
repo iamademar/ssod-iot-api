@@ -4,3 +4,7 @@ django_api_env/
 __pycache__/
 *.sqlite3
 .env
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
