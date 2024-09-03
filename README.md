@@ -32,7 +32,7 @@ This project is a Django-based API using Django REST Framework.
 The API is now accessible at `http://127.0.0.1:8000/`.
 
 # Sending updates for presence
-
+```
 curl -X POST http://127.0.0.1:8000/api/sensor \
 -H "Content-Type: application/json" \
 -H "X-API-KEY: secret-key" \
@@ -41,3 +41,4 @@ curl -X POST http://127.0.0.1:8000/api/sensor \
     "room_name": "Room1",
     "temperature": 23.45
 }'
+```
