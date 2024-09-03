@@ -1,0 +1,1 @@
+gunicorn --workers 3 --bind unix:/home/ubuntu/ssod-iot-api/smart_study_room/gunicorn.sock smart_study_room.wsgi:application

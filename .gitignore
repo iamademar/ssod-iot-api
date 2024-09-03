@@ -6,4 +6,6 @@ __pycache__/
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml:wq
+!.elasticbeanstalk/*.global.yml
+smart_study_room_api_env/
+django_api_env/
