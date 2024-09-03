@@ -88,9 +88,9 @@ if os.getenv('DJANGO_ENV') == 'production':
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
+            'USER': os.getenv('DB_USERNAME'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
+            'HOST': os.getenv('DB_HOSTNAME'),
             'PORT': os.getenv('DB_PORT', '5432'),
         }
     }
@@ -158,7 +158,7 @@ REST_FRAMEWORK = {
 
 print("DJANGO_ENV:", os.getenv('DJANGO_ENV'))
 print("DB_NAME:", os.getenv('DB_NAME'))
-print("DB_USER:", os.getenv('DB_USER'))
+print("DB_USERNAME:", os.getenv('DB_USERNAME'))
 print("DB_PASSWORD:", os.getenv('DB_PASSWORD'))
-print("DB_HOST:", os.getenv('DB_HOST'))
+print("DB_HOSTNAME:", os.getenv('DB_HOSTNAME'))
 print("DB_PORT:", os.getenv('DB_PORT'))
