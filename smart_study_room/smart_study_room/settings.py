@@ -33,7 +33,7 @@ API_KEY = os.getenv('API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.27.174.228', 'localhost', '127.0.0.1']
 
 
 # Application definition
