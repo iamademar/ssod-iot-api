@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers
 
 load_dotenv()
 
@@ -34,6 +35,10 @@ API_KEY = os.getenv('API_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['3.27.174.228', 'localhost', '127.0.0.1']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 
 # Application definition
@@ -47,9 +52,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'occupancy',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -156,9 +163,7 @@ REST_FRAMEWORK = {
 }
 
 
-print("DJANGO_ENV:", os.getenv('DJANGO_ENV'))
-print("DB_NAME:", os.getenv('DB_NAME'))
-print("DB_USERNAME:", os.getenv('DB_USERNAME'))
-print("DB_PASSWORD:", os.getenv('DB_PASSWORD'))
-print("DB_HOSTNAME:", os.getenv('DB_HOSTNAME'))
-print("DB_PORT:", os.getenv('DB_PORT'))
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'x-api-key',
+]
