@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('occupancy.urls')),  # Include the occupancy app URLs under the /api/ path
+    path('api/', include('occupancy.urls')),
+    path('api/reading/', include('reading.urls')),
+
 ]
