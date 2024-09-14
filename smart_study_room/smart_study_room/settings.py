@@ -39,7 +39,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:3001",
-    "http://3.27.174.228"
+    "http://3.27.174.228",
+    "http://iot.ademartutor.com",
+    "https://iot.ademartutor.com"
 ]
 
 
