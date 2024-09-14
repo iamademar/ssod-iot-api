@@ -26,15 +26,15 @@ def create_reading(request):
 @authentication_classes([APIKeyAuthentication])
 @permission_classes([HasValidAPIKey])
 def get_latest_readings(request):
-    latest_readings = Reading.objects.order_by('-created_at')[:10]
+    # latest_readings = Reading.objects.order_by('-created_at')[:10]
     logs_data = [
-        {
-            'id': log.id,
-            'room_name': log.room_name,
-            'sensor_name': log.sensor_name,
-            'reading': log.reading,
-            'datetime_recorded_by_sensor': log.datetime_recorded_by_sensor.isoformat()
-        }
-        for log in latest_readings
+        # {
+        #     'id': log.id,
+        #     'room_name': log.room_name,
+        #     'sensor_name': log.sensor_name,
+        #     'reading': log.reading,
+        #     'datetime_recorded_by_sensor': log.datetime_recorded_by_sensor.isoformat()
+        # }
+        # for log in latest_readings
     ]
     return JsonResponse({'logs': logs_data})
