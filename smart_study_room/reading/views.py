@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
+from django.http import JsonResponse
 from .models import Reading
 from .serializers import ReadingSerializer
 from occupancy.authentication import APIKeyAuthentication
@@ -25,7 +26,15 @@ def create_reading(request):
 @authentication_classes([APIKeyAuthentication])
 @permission_classes([HasValidAPIKey])
 def get_latest_readings(request):
-    latest_readings = Reading.objects.order_by('-datetime_recorded_by_sensor')[:100]
-    serializer = ReadingSerializer(latest_readings, many=True)
-    logger.info('Latest reading data: %s', serializer.data)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    latest_readings = Reading.objects.order_by('-created_at')[:10]
+    logs_data = [
+        {
+            'id': log.id,
+            'room_name': log.room_name,
+            'sensor_name': log.sensor_name,
+            'reading': log.reading,
+            'datetime_recorded_by_sensor': log.datetime_recorded_by_sensor.isoformat()
+        }
+        for log in latest_readings
+    ]
+    return JsonResponse({'logs': logs_data})
