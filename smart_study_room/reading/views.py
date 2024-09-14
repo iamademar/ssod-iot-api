@@ -6,6 +6,10 @@ from .serializers import ReadingSerializer
 from occupancy.authentication import APIKeyAuthentication
 from occupancy.permissions import HasValidAPIKey
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 @api_view(['POST'])
 @authentication_classes([APIKeyAuthentication])
 @permission_classes([HasValidAPIKey])
@@ -23,4 +27,5 @@ def create_reading(request):
 def get_latest_readings(request):
     latest_readings = Reading.objects.order_by('-datetime_recorded_by_sensor')[:100]
     serializer = ReadingSerializer(latest_readings, many=True)
+    logger.info('Latest reading data: %s', serializer.data)
     return Response(serializer.data, status=status.HTTP_200_OK)
