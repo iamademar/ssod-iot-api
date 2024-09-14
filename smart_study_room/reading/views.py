@@ -16,3 +16,11 @@ def create_reading(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+@authentication_classes([APIKeyAuthentication])
+@permission_classes([HasValidAPIKey])
+def get_latest_readings(request):
+    latest_readings = Reading.objects.order_by('-datetime_recorded_by_sensor')[:100]
+    serializer = ReadingSerializer(latest_readings, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
