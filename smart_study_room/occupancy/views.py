@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from .models import RoomOccupancy
+from reading.models import Reading
 from .serializers import RoomOccupancySerializer
 from .authentication import APIKeyAuthentication
 from .permissions import HasValidAPIKey
@@ -60,3 +61,20 @@ def get_latest_room_temperature(request, room_name):
         return JsonResponse({
             'error': f'No temperature data found for room: {room_name}'
         }, status=404)
+    
+@api_view(['GET'])
+@authentication_classes([APIKeyAuthentication])
+@permission_classes([HasValidAPIKey])
+def get_reading_logs(request):
+    latest_readings = Reading.objects.order_by('-created_at')[:10]
+    logs_data = [
+        {
+            'id': log.id,
+            'room_name': log.room_name,
+            'sensor_name': log.sensor_name,
+            'reading': log.reading,
+            'datetime_recorded_by_sensor': log.datetime_recorded_by_sensor.isoformat()
+        }
+        for log in latest_readings
+    ]
+    return JsonResponse({'logs': logs_data})
