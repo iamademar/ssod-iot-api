@@ -39,7 +39,6 @@ def get_latest_occupancy_logs(request):
             'room_name': log.room_name,
             'sensor_name': log.sensor_name,
             'presence_detected': log.presence_detected,
-            'temperature': log.temperature,
             'timestamp': log.timestamp.isoformat()
         }
         for log in latest_logs
