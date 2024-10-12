@@ -9,6 +9,7 @@ from .serializers import RoomOccupancySerializer
 from .authentication import APIKeyAuthentication
 from .permissions import HasValidAPIKey
 from .services import is_room_occupied
+from .adafruit_service import adafruit_service
 
 @api_view(['POST'])
 @authentication_classes([APIKeyAuthentication])
@@ -17,7 +18,16 @@ def save_room_occupancy(request):
     if request.method == 'POST':
         serializer = RoomOccupancySerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            occupancy_instance = serializer.save()
+            
+            # Check if the room is WZ321 or WZ320
+            if occupancy_instance.room_name in ['WZ321', 'WZ320']:
+                # Send data to Adafruit IO
+                adafruit_service.publish_occupancy(
+                    occupancy_instance.room_name,
+                    occupancy_instance.presence_detected
+                )
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
